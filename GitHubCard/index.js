@@ -28,7 +28,6 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -64,19 +63,32 @@ const followersArray = [];
 import axios from "axios"
 
 const myData = axios.get("https://api.github.com/users/Mark-DeLong")
-.then()
+.then((myData) => {
+  const allTheData = {
+    avatar_url: myData.data.avatar_url,
+    users_name: myData.data.name,
+    users_user_name: myData.data.login,
+    users_location: myData.data.location,
+    users_page_address: myData.data.url,
+    users_follower_count: myData.data.followers,
+    users_following_count: myData.data.following,
+    users_bio: myData.data.bio
+  } 
+})
+
+const cards = document.querySelector(".cards")
+cards.append(gitStuff)
 
 const followersArray = [];
 
-function gitStuff(myData) {
+function gitStuff(allTheData) {
   const gitCard = document.createElement("div")
   gitCard.classList.add("card")
   gitCard.appendChild(userImg)
   gitCard.appendChild(info)
 
     const userImg = document.createElement("img")
-    userImg.src = {}
-
+    userImg.src = `${allTheData[0]}`
     const info = document.createElement("div")
     info.classList.add("card-info")
     info.appendChild(nameTitle)
@@ -89,14 +101,14 @@ function gitStuff(myData) {
 
       const nameTitle = document.createElement("h3")
       nameTitle.classList.add("name")
-      nameTitle.textContent = `${users_name}`
+      nameTitle.textContent = `${allTheData[1]}`
 
       const userName = document.createElement("p")
       userName.classList.add("username")
-      userName.textContent = `${users_user_name}`
+      userName.textContent = `${allTheData[2]}`
 
       const location = document.createElement("p")
-      location.textContent = `Location: ${users_location}`
+      location.textContent = `Location: ${allTheData[3]}`
 
       const profile = document.createElement("p")
       profile.textContent = `Profile: `
@@ -104,16 +116,16 @@ function gitStuff(myData) {
 
         const pageAddress = document.createElement("a")
         pageAddress.src = {users_page_address}
-        pageAddress.textContent = {users_page_address}
+        pageAddress.textContent = `${allTheData[4]}`
 
       const followers = document.createElement("p")
-      followers.textContent = `Followers: ${users_follower_count}`
+      followers.textContent = `Followers: ${allTheData[5]}`
 
       const following = document.createElement("p")
-      following.textContent = `Following: ${users_following_count}`
+      following.textContent = `Following: ${allTheData[6]}`
 
       const bio = document.createElement("p")
-      bio.textContent = `Bio: ${users_bio}`
+      bio.textContent = `Bio: ${allTheData[7]}`
 
-
+  return gitCard
 }
