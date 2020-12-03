@@ -58,3 +58,62 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+
+
+import axios from "axios"
+
+const myData = axios.get("https://api.github.com/users/Mark-DeLong")
+.then()
+
+const followersArray = [];
+
+function gitStuff(myData) {
+  const gitCard = document.createElement("div")
+  gitCard.classList.add("card")
+  gitCard.appendChild(userImg)
+  gitCard.appendChild(info)
+
+    const userImg = document.createElement("img")
+    userImg.src = {}
+
+    const info = document.createElement("div")
+    info.classList.add("card-info")
+    info.appendChild(nameTitle)
+    info.appendChild(userName)
+    info.appendChild(location)
+    info.appendChild(profile)
+    info.appendChild(followers)
+    info.appendChild(following)
+    info.appendChild(bio)
+
+      const nameTitle = document.createElement("h3")
+      nameTitle.classList.add("name")
+      nameTitle.textContent = `${users_name}`
+
+      const userName = document.createElement("p")
+      userName.classList.add("username")
+      userName.textContent = `${users_user_name}`
+
+      const location = document.createElement("p")
+      location.textContent = `Location: ${users_location}`
+
+      const profile = document.createElement("p")
+      profile.textContent = `Profile: `
+      profile.appendChild(pageAddress)
+
+        const pageAddress = document.createElement("a")
+        pageAddress.src = {users_page_address}
+        pageAddress.textContent = {users_page_address}
+
+      const followers = document.createElement("p")
+      followers.textContent = `Followers: ${users_follower_count}`
+
+      const following = document.createElement("p")
+      following.textContent = `Following: ${users_following_count}`
+
+      const bio = document.createElement("p")
+      bio.textContent = `Bio: ${users_bio}`
+
+
+}
