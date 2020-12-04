@@ -62,70 +62,85 @@
 
 import axios from "axios"
 
-const myData = axios.get("https://api.github.com/users/Mark-DeLong")
-.then((myData) => {
-  const allTheData = {
-    avatar_url: myData.data.avatar_url,
-    users_name: myData.data.name,
-    users_user_name: myData.data.login,
-    users_location: myData.data.location,
-    users_page_address: myData.data.url,
-    users_follower_count: myData.data.followers,
-    users_following_count: myData.data.following,
-    users_bio: myData.data.bio
-  } 
-})
-
 const cards = document.querySelector(".cards")
-cards.append(gitStuff)
 
-const followersArray = [];
+axios
+  .get("https://api.github.com/users/Mark-DeLong")
+  .then((myData) => {
+    const allTheData = {
+      avatar_url: myData.data.avatar_url,
+      users_name: myData.data.name,
+      users_user_name: myData.data.login,
+      users_location: myData.data.location,
+      users_page_address: myData.data.url,
+      users_follower_count: myData.data.followers,
+      users_following_count: myData.data.following,
+      users_bio: myData.data.bio
+    } 
+    
+    return gitStuff(allTheData)
+  })
 
-function gitStuff(allTheData) {
-  const gitCard = document.createElement("div")
-  gitCard.classList.add("card")
-  gitCard.appendChild(userImg)
-  gitCard.appendChild(info)
-
+  function gitStuff(allTheData) {
+    
+    const gitCard = document.createElement("div")
+    gitCard.classList.add("card")
     const userImg = document.createElement("img")
-    userImg.src = `${allTheData[0]}`
     const info = document.createElement("div")
-    info.classList.add("card-info")
-    info.appendChild(nameTitle)
-    info.appendChild(userName)
-    info.appendChild(location)
-    info.appendChild(profile)
-    info.appendChild(followers)
-    info.appendChild(following)
-    info.appendChild(bio)
 
-      const nameTitle = document.createElement("h3")
-      nameTitle.classList.add("name")
-      nameTitle.textContent = `${allTheData[1]}`
-
-      const userName = document.createElement("p")
-      userName.classList.add("username")
-      userName.textContent = `${allTheData[2]}`
-
-      const location = document.createElement("p")
-      location.textContent = `Location: ${allTheData[3]}`
-
-      const profile = document.createElement("p")
-      profile.textContent = `Profile: `
-      profile.appendChild(pageAddress)
-
+      userImg.src = `${allTheData.avatar_url}`
+      
+      info.classList.add("card-info")
+      
+    
+        const nameTitle = document.createElement("h3")
+        nameTitle.classList.add("name")
+        nameTitle.textContent = `${allTheData.users_name}`
+    
+        const userName = document.createElement("p")
+        userName.classList.add("username")
+        userName.textContent = `${allTheData.users_user_name}`
+    
+        const location = document.createElement("p")
+        location.textContent = `Location: ${allTheData.users_location}`
+    
+        const profile = document.createElement("p")
+        profile.textContent = `Profile: `
         const pageAddress = document.createElement("a")
-        pageAddress.src = {users_page_address}
-        pageAddress.textContent = `${allTheData[4]}`
+        profile.appendChild(pageAddress)
+    
+          
+          pageAddress.src = `${allTheData.users_page_address}`
+          pageAddress.textContent = `${allTheData.users_page_address}`
+    
+        const followers = document.createElement("p")
+        followers.textContent = `Followers: ${allTheData.users_followers_count}`
+    
+        const following = document.createElement("p")
+        following.textContent = `Following: ${allTheData.users_following_count}`
+    
+        const bio = document.createElement("p")
+        bio.textContent = `Bio: ${allTheData.users_bio}`
 
-      const followers = document.createElement("p")
-      followers.textContent = `Followers: ${allTheData[5]}`
+        gitCard.appendChild(userImg)
+    gitCard.appendChild(info)
+      info.appendChild(nameTitle)
+      info.appendChild(userName)
+      info.appendChild(location)
+      info.appendChild(profile)
+      info.appendChild(followers)
+      info.appendChild(following)
+      info.appendChild(bio)
+    
+      return cards.appendChild(gitCard)
+    }
 
-      const following = document.createElement("p")
-      following.textContent = `Following: ${allTheData[6]}`
+// axios
+//   .catch((ambiguousError) => {
+//     console.log(ambiguousError, `ambiguous`)
+//   })
+ 
+  // const followersArray = [];
 
-      const bio = document.createElement("p")
-      bio.textContent = `Bio: ${allTheData[7]}`
 
-  return gitCard
-}
+
